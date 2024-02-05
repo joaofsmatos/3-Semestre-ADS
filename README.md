@@ -2,7 +2,7 @@
 
 Este repositório contém materiais e projetos relacionados ao 3º semestre do curso de Análise e Desenvolvimento de Sistemas.
 
-### Disciplinas
+### Disciplinas:
 
 1. **Engenharia de Software**
 2. **Projeto Integrador**
