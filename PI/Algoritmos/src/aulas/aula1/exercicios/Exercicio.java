@@ -4,7 +4,7 @@ import java.util.Scanner;
 
 public class Exercicio {
 
-     static Scanner sc = new Scanner(System.in);
+    static Scanner sc = new Scanner(System.in);
 
     public static void main(String[] args) {
         calculadora();
