@@ -4,8 +4,17 @@ public class Veiculo {
 
     private String marca, modelo;
     private int anoFabricacao;
+    private short velocidade;
     private byte marchaAtual;
     private boolean estado;
+
+    public short getVelocidade() {
+        return velocidade;
+    }
+
+    public void setVelocidade(short velocidade) {
+        this.velocidade = velocidade;
+    }
 
     public byte getMarchaAtual() {
         return marchaAtual;
@@ -19,24 +28,12 @@ public class Veiculo {
         return estado;
     }
 
-    public String getMarca() {
-        return marca;
-    }
-
     public void setMarca(String marca) {
         this.marca = marca;
     }
 
-    public String getModelo() {
-        return modelo;
-    }
-
     public void setModelo(String modelo) {
         this.modelo = modelo;
-    }
-
-    public int getAnoFabricacao() {
-        return anoFabricacao;
     }
 
     public void setAnoFabricacao(int anoFabricacao) {

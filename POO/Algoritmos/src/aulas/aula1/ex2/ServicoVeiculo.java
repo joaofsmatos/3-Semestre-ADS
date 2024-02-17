@@ -1,5 +1,6 @@
 package aulas.aula1.ex2;
 
+import javax.swing.*;
 import java.util.Scanner;
 
 public class ServicoVeiculo {
@@ -16,6 +17,7 @@ public class ServicoVeiculo {
         novoVeiculo.setAnoFabricacao(sc.nextInt());
         do {
             System.out.println("Velocidade atual");
+            JOptionPane.showInputDialog(null, "Ola");
             novoVeiculo.setVelocidade(sc.nextShort());
             novoVeiculo.ligar();
             if(novoVeiculo.getVelocidade() > 0 && novoVeiculo.getVelocidade() <= 20) {
