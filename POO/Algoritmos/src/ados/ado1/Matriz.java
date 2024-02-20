@@ -9,10 +9,15 @@ public class Matriz {
     }
 
     public void preencherMatriz(int[][] matriz){
-        for (int i = 0; i < matriz.length; i++) {
-            for (int j = 0; j < matriz.length; j++) {
-                matriz[i][j] = Integer.parseInt(JOptionPane.showInputDialog(null, "Digite o número da coluna " + j + " da linha " + i));
+        try {
+            for (int i = 0; i < matriz.length; i++) {
+                for (int j = 0; j < matriz.length; j++) {
+                    matriz[i][j] = Integer.parseInt(JOptionPane.showInputDialog(null, "Digite o número da coluna " + j + " da linha " + i));
+                }
             }
+        } catch (NumberFormatException e) {
+            System.out.println("Forneça o valor pedido!");
+            ProgramaMatriz.main(null);
         }
     }
 
