@@ -72,7 +72,6 @@ public class ServicoMatriz {
     public static void matrizQuadrada() {
         ServicoMatriz servicoMatriz = new ServicoMatriz();
         Scanner sc = new Scanner(System.in);
-        boolean continuar;
         do {
             Matriz matrizQuadrada = new Matriz();
             System.out.println("Qual a ordem da matriz?");
@@ -85,8 +84,8 @@ public class ServicoMatriz {
             System.out.println("A soma total dos valores: " + servicoMatriz.somarTotal(matriz));
             servicoMatriz.imprimirMatriz(matriz);
             System.out.println("Deseja criar uma nova matriz? ");
-            continuar = sc.next().equalsIgnoreCase("S");
-        } while (continuar);
+
+        } while (sc.next().equalsIgnoreCase("S"););
     }
 
 }
