@@ -1,6 +1,4 @@
-package aulas.aula2.exercicios.data;
-
-import javax.swing.*;
+package aulas.aula2.data;
 
 public class Data {
 

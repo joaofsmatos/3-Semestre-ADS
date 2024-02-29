@@ -1,4 +1,4 @@
-package aulas.aula2.exercicios.data;
+package aulas.aula2.data;
 
 import javax.swing.*;
 

@@ -1,4 +1,4 @@
-package aulas.aula2.exercicios.pessoa;
+package aulas.aula2.pessoa;
 
 import javax.swing.*;
 

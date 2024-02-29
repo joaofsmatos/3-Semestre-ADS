@@ -4,7 +4,6 @@ function trocarImagem() {
     let i = 0;
     if(i === 0) {
         i = 1;
-        
     }
     const imagens = ["imgs/apagada.png", "imgs/acesa.png"];
     let img = document.getElementById("imagem");

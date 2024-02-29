@@ -1,4 +1,4 @@
-package aulas.aula2.exercicios.circulo;
+package aulas.aula2.circulo;
 
 public class Circulo {
 
