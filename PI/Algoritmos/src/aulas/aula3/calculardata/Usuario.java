@@ -1,14 +1,14 @@
 package aulas.aula3.calculardata;
 
 public class Usuario {
-    private String data;
+    private int diasVividos;
 
-    public String getData() {
-        return data;
+    public int getDiasVividos() {
+        return this.diasVividos;
     }
 
-    public void setData(String data) {
-        this.data = data;
+    public void setDiasVividos(int diasVividos) {
+        this.diasVividos = diasVividos;
     }
 
 }

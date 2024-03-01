@@ -22,9 +22,6 @@ public class ServicoPessoa {
         System.out.printf("A = %d \nE = %d \nI = %d \nO = %d \nU = %d \n",aeiou[0],aeiou[1],aeiou[2],aeiou[3],aeiou[4]);
         System.out.println("\nEx6:");
         ex6("João");
-        for (int i = 0; i < 4; i++) {
-            56
-        }
     }
 
     public static String ex1(String nome) {
