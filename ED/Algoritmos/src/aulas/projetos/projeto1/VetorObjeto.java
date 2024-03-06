@@ -1,16 +1,16 @@
 package aulas.projetos.projeto1;
 
-public class Vetor {
+public class VetorObjeto {
 
-    private String[] elementos;
+    private Object[] elementos;
     private int tamanho;
 
-    public Vetor(int capacidade) {
-        this.elementos = new String[capacidade];
+    public VetorObjeto(int capacidade) {
+        this.elementos = new Object[capacidade];
         this.tamanho = 0;
     }
 
-    public void adicionar(String elemento) throws Exception {
+    public void adicionar(Object elemento) throws Exception {
         if(this.tamanho < this.elementos.length) {
             this.elementos[this.tamanho] = elemento;
             this.tamanho++;
@@ -29,20 +29,20 @@ public class Vetor {
         } else throw new Exception("Posição inválida!");
     }
 
-    public String buscarPorPosicao(int posicao) throws Exception {
+    public Object buscarPorPosicao(int posicao) throws Exception {
         if(posicao >= 0 && posicao < this.tamanho) return elementos[posicao];
         else throw new Exception("Posição inválida!");
     }
 
-    public int buscarPorValor(String elemento) {
+    public int buscarPorValor(Object elemento) {
         for (int i = 0; i < this.tamanho; i++)
-            if(this.elementos[i].equalsIgnoreCase(elemento)) return i;
+            if(this.elementos[i].equals(elemento)) return i;
         return -1;
     }
 
     public void aumentarCapacidade() {
         if(this.tamanho == this.elementos.length) {
-            String[] elementosNovos = new String[this.elementos.length * 2];
+            Object[] elementosNovos = new Object[this.elementos.length * 2];
             System.arraycopy(this.elementos, 0, elementosNovos, 0, this.elementos.length);
             this.elementos = elementosNovos;
         }
@@ -67,7 +67,7 @@ public class Vetor {
         return this.elementos.length;
     }
 
-    public String[] getElementos(){
+    public Object[] getElementos(){
         return this.elementos;
     }
 
