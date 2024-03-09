@@ -6,23 +6,6 @@ public class Fornecedor {
 
     private String nome, fone;
 
-    public static void main(String[] args) {
-        Fornecedor fornecedorPessoa = new FornecedorPessoa(
-            JOptionPane.showInputDialog(null, "RG: "),
-            JOptionPane.showInputDialog(null, "CPF: "),
-            JOptionPane.showInputDialog(null, "Nome: "),
-            JOptionPane.showInputDialog(null, "Fone: ")
-        );
-        Fornecedor fornecedorEmpresa = new FornecedorEmpresa(
-            JOptionPane.showInputDialog(null, "Nome: "),
-            JOptionPane.showInputDialog(null, "Fone: "),
-            JOptionPane.showInputDialog(null, "IE: "),
-            JOptionPane.showInputDialog(null, "CNPJ: ")
-        );
-        JOptionPane.showMessageDialog(null, fornecedorPessoa);
-        JOptionPane.showMessageDialog(null, fornecedorEmpresa);
-    }
-
     public Fornecedor(){
         super();
     }
@@ -50,7 +33,7 @@ public class Fornecedor {
 
     @Override
     public String toString() {
-        return "Fornecedor " + "\nNome = " + nome + "\nFone = " + fone;
+        return "Fornecedor {" + "\nNome = " + nome + "\nFone = " + fone;
     }
 
 }

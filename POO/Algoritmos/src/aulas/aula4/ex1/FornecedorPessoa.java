@@ -32,9 +32,12 @@ public class FornecedorPessoa extends Fornecedor{
 
     @Override
     public String toString() {
-        return "Fornecedor Pessoa" +
-                "\nRG = " + rg +
-                "\nCPF = " + cpf;
+        return "\nFornecedor Pessoa {" +
+                "\n   nome = " + getNome() +
+                "\n   fone = " + getFone() +
+                "\n   rg = " + rg +
+                "\n   cpf = " + cpf +
+                "\n}\n";
     }
 
 }
