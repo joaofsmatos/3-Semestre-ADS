@@ -1,19 +1,21 @@
-package aulas.ados.ado1final;
+package aulas.ados.ado1.source;
 
 public class Filme {
 
+    private int id = 0;
     private String titulo;
     private String diretor;
     private String genero;
+    private String duracao;
     private int anoLancamento;
-    private byte duracao;
 
-    public Filme(String titulo, String diretor, String genero, int anoLancamento, byte duracao) {
+    public Filme(String titulo, String diretor, String genero, int anoLancamento, String duracao) {
         this.titulo = titulo;
         this.diretor = diretor;
         this.genero = genero;
         this.anoLancamento = anoLancamento;
         this.duracao = duracao;
+        this.id++;
     }
 
     public String getTitulo() {
@@ -48,12 +50,23 @@ public class Filme {
         this.anoLancamento = anoLancamento;
     }
 
-    public byte getDuracao() {
+    public String getDuracao() {
         return duracao;
     }
 
-    public void setDuracao(byte duracao) {
+    public void setDuracao(String duracao) {
         this.duracao = duracao;
+    }
+
+    @Override
+    public String toString() {
+        return " Filme " + id +" [" +
+                "titulo='" + titulo + '\'' +
+                ", diretor='" + diretor + '\'' +
+                ", genero='" + genero + '\'' +
+                ", anoLancamento=" + anoLancamento +
+                ", duracao=" + duracao +
+                ']';
     }
 
 }
