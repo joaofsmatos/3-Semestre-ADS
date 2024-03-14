@@ -8,9 +8,19 @@ public class ServicoFilme {
     private int tamanho;
 
     // INICIO CREATE
-    private void criarFilme(String titulo, String diretor, String genero, int anoLancamento, String duracao) throws Exception {
-        if (!titulo.isEmpty() && !diretor.isEmpty() && !genero.isEmpty()  && !duracao.isEmpty() && anoLancamento != 0) {
+    private boolean criarFilme(String titulo, String diretor, String genero, int anoLancamento, String duracao) throws Exception {
+        if (!titulo.isEmpty() && !diretor.isEmpty() && !genero.isEmpty() && !duracao.isEmpty() && anoLancamento != 0) {
             adicionar(new Filme(titulo, diretor, genero, anoLancamento, duracao));
+            return true;
+        } else {
+            throw new Exception("Preencha todos os campos");
+        }
+    }
+
+    private boolean criarFilmePosicaoEspecifica(String titulo, String diretor, String genero, int anoLancamento, String duracao, int posicao) throws Exception {
+        if (!titulo.isEmpty() && !diretor.isEmpty() && !genero.isEmpty() && !duracao.isEmpty() && anoLancamento != 0) {
+            adicionar(new Filme(titulo, diretor, genero, anoLancamento, duracao), posicao);
+            return true;
         } else {
             throw new Exception("Preencha todos os campos");
         }
@@ -22,6 +32,23 @@ public class ServicoFilme {
         }
         if (this.tamanho < this.topFilmes.length) {
             this.topFilmes[this.tamanho] = filme;
+            this.tamanho++;
+        } else {
+            throw new Exception("O Vetor já está cheio, não é possível adicionar novos elementos!");
+        }
+    }
+
+    private void adicionar(Filme filme, int posicao) throws Exception {
+        if (this.tamanho == this.topFilmes.length) {
+            aumentarCapacidade();
+        }
+        posicao -= 1;
+        if (posicao >= 0 && posicao < this.tamanho) {
+            Filme aux = this.topFilmes[posicao];
+            this.topFilmes[posicao] = null;
+            reorganizarListaFilmes(posicao);
+            this.topFilmes[posicao] = filme;
+            this.topFilmes[posicao + 1] = aux;
             this.tamanho++;
         } else {
             throw new Exception("O Vetor já está cheio, não é possível adicionar novos elementos!");
@@ -60,7 +87,7 @@ public class ServicoFilme {
         }
         Filme[] filmesDoTitulo = new Filme[posicoes.length()];
         if (filmesDoTitulo.length > 0) {
-            for (int i = 0; i < this.tamanho; i++) {
+            for (int i = 0; i < posicoes.length(); i++) {
                 filmesDoTitulo[i] = this.topFilmes[Integer.parseInt(String.valueOf(posicoes.charAt(i)))];
             }
         }
@@ -76,7 +103,7 @@ public class ServicoFilme {
         }
         Filme[] filmesDoDiretor = new Filme[posicoes.length()];
         if (filmesDoDiretor.length > 0) {
-            for (int i = 0; i < this.tamanho; i++) {
+            for (int i = 0; i < posicoes.length(); i++) {
                 filmesDoDiretor[i] = this.topFilmes[Integer.parseInt(String.valueOf(posicoes.charAt(i)))];
             }
         }
@@ -92,7 +119,7 @@ public class ServicoFilme {
         }
         Filme[] filmesDoGenero = new Filme[posicoes.length()];
         if (filmesDoGenero.length > 0) {
-            for (int i = 0; i < this.tamanho; i++) {
+            for (int i = 0; i < posicoes.length(); i++) {
                 filmesDoGenero[i] = this.topFilmes[Integer.parseInt(String.valueOf(posicoes.charAt(i)))];
             }
         }
@@ -108,7 +135,7 @@ public class ServicoFilme {
         }
         Filme[] filmesDoAnoLancamento = new Filme[posicoes.length()];
         if (filmesDoAnoLancamento.length > 0) {
-            for (int i = 0; i < this.tamanho; i++) {
+            for (int i = 0; i < posicoes.length(); i++) {
                 filmesDoAnoLancamento[i] = this.topFilmes[Integer.parseInt(String.valueOf(posicoes.charAt(i)))];
             }
         }
@@ -124,7 +151,7 @@ public class ServicoFilme {
         }
         Filme[] filmesDaDuracao = new Filme[posicoes.length()];
         if (filmesDaDuracao.length > 0) {
-            for (int i = 0; i < this.tamanho; i++) {
+            for (int i = 0; i < posicoes.length(); i++) {
                 filmesDaDuracao[i] = this.topFilmes[Integer.parseInt(String.valueOf(posicoes.charAt(i)))];
             }
         }
@@ -133,8 +160,9 @@ public class ServicoFilme {
 
     private void listarFilmes(Filme[] filmes) {
         if (filmes.length > 0) {
+            int i = 1;
             for (Filme filme : filmes) {
-                JOptionPane.showMessageDialog(null, filme);
+                JOptionPane.showMessageDialog(null, "Filme " + (i++) + filme);
             }
         } else {
             JOptionPane.showMessageDialog(null, "LISTA DE FILMES VAZIA!");
@@ -144,7 +172,7 @@ public class ServicoFilme {
 
     // INICIO UPDATE
     private boolean editarFilme(int opcao, String parametro, int indice) throws Exception {
-        if(parametro.isEmpty()) return false;
+        if (parametro.isEmpty()) return false;
         if (this.topFilmes.length == 0) return false;
         return switch (opcao) {
             case 1 -> {
@@ -241,11 +269,12 @@ public class ServicoFilme {
         int indiceDeletar = 0;
         if (filmesADeletar.length > 0) {
             for (int i = 0; i < this.topFilmes.length; i++) {
-                if (this.topFilmes[i].getTitulo().equalsIgnoreCase(filmesADeletar[indiceDeletar].getTitulo())) {
+                if (indiceDeletar < filmesADeletar.length && this.topFilmes[i].getTitulo().equalsIgnoreCase(filmesADeletar[indiceDeletar].getTitulo())) {
                     this.topFilmes[i] = null;
                     indiceDeletar++;
                 }
             }
+            this.tamanho -= filmesADeletar.length;
         }
     }
 
@@ -254,11 +283,12 @@ public class ServicoFilme {
         int indiceDeletar = 0;
         if (filmesADeletar.length > 0) {
             for (int i = 0; i < this.topFilmes.length; i++) {
-                if (this.topFilmes[i].getDiretor().equalsIgnoreCase(filmesADeletar[indiceDeletar].getDiretor())) {
+                if (indiceDeletar < filmesADeletar.length && this.topFilmes[i].getDiretor().equalsIgnoreCase(filmesADeletar[indiceDeletar].getDiretor())) {
                     this.topFilmes[i] = null;
                     indiceDeletar++;
                 }
             }
+            this.tamanho -= filmesADeletar.length;
         }
     }
 
@@ -267,11 +297,12 @@ public class ServicoFilme {
         int indiceDeletar = 0;
         if (filmesADeletar.length > 0) {
             for (int i = 0; i < this.topFilmes.length; i++) {
-                if (this.topFilmes[i].getGenero().equalsIgnoreCase(filmesADeletar[indiceDeletar].getGenero())) {
+                if (indiceDeletar < filmesADeletar.length && this.topFilmes[i].getGenero().equalsIgnoreCase(filmesADeletar[indiceDeletar].getGenero())) {
                     this.topFilmes[i] = null;
                     indiceDeletar++;
                 }
             }
+            this.tamanho -= filmesADeletar.length;
         }
     }
 
@@ -280,11 +311,12 @@ public class ServicoFilme {
         int indiceDeletar = 0;
         if (filmesADeletar.length > 0) {
             for (int i = 0; i < this.topFilmes.length; i++) {
-                if (this.topFilmes[i].getAnoLancamento() == filmesADeletar[indiceDeletar].getAnoLancamento()) {
+                if (indiceDeletar < filmesADeletar.length && this.topFilmes[i].getAnoLancamento() == filmesADeletar[indiceDeletar].getAnoLancamento()) {
                     this.topFilmes[i] = null;
                     indiceDeletar++;
                 }
             }
+            this.tamanho -= filmesADeletar.length;
         }
     }
 
@@ -293,11 +325,12 @@ public class ServicoFilme {
         int indiceDeletar = 0;
         if (filmesADeletar.length > 0) {
             for (int i = 0; i < this.topFilmes.length; i++) {
-                if (this.topFilmes[i].getDuracao().equals(filmesADeletar[indiceDeletar].getDuracao())) {
+                if (indiceDeletar < filmesADeletar.length && this.topFilmes[i].getDuracao().equals(filmesADeletar[indiceDeletar].getDuracao())) {
                     this.topFilmes[i] = null;
                     indiceDeletar++;
                 }
             }
+            this.tamanho -= filmesADeletar.length;
         }
     }
 
@@ -311,6 +344,15 @@ public class ServicoFilme {
                         break;
                     }
                 }
+            }
+        }
+    }
+
+    private void reorganizarListaFilmes(int posicao) {
+        for (int i = this.topFilmes.length - 1; i > 0; i--) {
+            if (i != posicao && i != (posicao + 1) && this.topFilmes[i] == null) {
+                this.topFilmes[i] = this.topFilmes[i - 1];
+                this.topFilmes[i - 1] = null;
             }
         }
     }
@@ -337,25 +379,41 @@ public class ServicoFilme {
 
     private void deletarFilmeId(int id) {
         this.topFilmes[id - 1] = null;
+        this.tamanho -= 1;
     }
     // FIM DELETE
 
     // INICIO INTERFACE USUARIO
     private void criarFilmeInterface() throws Exception {
-        criarFilme(
-                JOptionPane.showInputDialog(null, "TITULO FILME"),
-                JOptionPane.showInputDialog(null, "DIRETOR FILME"),
-                JOptionPane.showInputDialog(null, "GENERO FILME"),
-                Integer.parseInt(JOptionPane.showInputDialog(null, "ANO LANÇAMENTO FILME")),
-                JOptionPane.showInputDialog(null, "DURAÇÃO FILME EXEMPLO \"01:30\" ")
-        );
+        if (!JOptionPane.showInputDialog(null, "DESEJA ADICIONAR EM UMA POSIÇÃO ESPECIFICA? (S/N)").equalsIgnoreCase("S")) {
+            JOptionPane.showMessageDialog(null,
+                    criarFilme(
+                            JOptionPane.showInputDialog(null, "TITULO FILME"),
+                            JOptionPane.showInputDialog(null, "DIRETOR FILME"),
+                            JOptionPane.showInputDialog(null, "GENERO FILME"),
+                            Integer.parseInt(JOptionPane.showInputDialog(null, "ANO LANÇAMENTO FILME")),
+                            JOptionPane.showInputDialog(null, "DURAÇÃO FILME EXEMPLO \"01:30\" ")
+                    ) ? "ADICIONADO" : "NÃO ADICIONADO"
+            );
+        } else {
+            JOptionPane.showMessageDialog(null,
+                    criarFilmePosicaoEspecifica(
+                            JOptionPane.showInputDialog(null, "TITULO FILME"),
+                            JOptionPane.showInputDialog(null, "DIRETOR FILME"),
+                            JOptionPane.showInputDialog(null, "GENERO FILME"),
+                            Integer.parseInt(JOptionPane.showInputDialog(null, "ANO LANÇAMENTO FILME")),
+                            JOptionPane.showInputDialog(null, "DURAÇÃO FILME EXEMPLO \"01:30\" "),
+                            Integer.parseInt(JOptionPane.showInputDialog(null, "QUAL POSIÇÃO"))
+                    ) ? "ADICIONADO" : "NÃO ADICIONADO"
+            );
+        }
     }
 
     private void procurarFilmeInterface() throws Exception {
         int opcao = Integer.parseInt(JOptionPane.showInputDialog(null, "1) PROCURAR POR TITULO\n2) PROCURAR POR DIRETOR\n3) PROCURAR POR GENERO\n4) PROCURAR POR ANO DE LANÇAMENTO\n5) PROCURAR POR DURAÇÃO\n6) VOLTAR"));
         if (opcao == 6) menu();
         Filme[] filmesAchados = procurarFilme(opcao, JOptionPane.showInputDialog(null, "DIGITE"));
-        if(filmesAchados.length == 0) JOptionPane.showMessageDialog(null,"NENHUM FILME ENCONTRADO!");
+        if (filmesAchados.length == 0) JOptionPane.showMessageDialog(null, "NENHUM FILME ENCONTRADO!");
         else listarFilmes(filmesAchados);
     }
 
@@ -371,34 +429,38 @@ public class ServicoFilme {
     private void deletarFilmeInterface() throws Exception {
         int opcao = Integer.parseInt(JOptionPane.showInputDialog(null, "1) DELETAR TODOS POR TITULO\n2) DELETAR TODOS POR DIRETOR\n3) DELETAR POR GENERO\n4) DELETAR TODOS POR ANO DE LANÇAMENTO\n5) DELETAR TODOS POR DURAÇÃO\n6) DELETAR POR ID\n7) VOLTAR"));
         if (opcao == 7) menu();
-        if(opcao == 6) listarFilmes(this.topFilmes);
+        if (opcao == 6) listarFilmes(this.topFilmes);
+        int tamanhoAntes = this.tamanho;
         JOptionPane.showMessageDialog(null,
-                deletarFilme(opcao, JOptionPane.showInputDialog(null, "DIGITE")) ? "DELETADO" : "NÃO DELETADO"
+                deletarFilme(opcao, JOptionPane.showInputDialog(null, "DIGITE")) ? "DELETADO: " + (tamanhoAntes - this.tamanho) + " FILME(S)" : "NÃO DELETADO"
         );
     }
 
     public void menu() throws Exception {
         do {
-            switch (Integer.parseInt(JOptionPane.showInputDialog(null, "1) INSERIR FILME\n2) PROCURAR FILME\n3) EDITAR FILME\n4) DELETAR FILME\n5) LISTAR FILMES\n6) SAIR"))) {
+            switch (Integer.parseInt(JOptionPane.showInputDialog(null, "1) INSERIR FILME\n2) PROCURAR FILME\n3) EDITAR FILME\n4) DELETAR FILME\n5) LISTAR FILMES\n6) QUANTIDADE DE FILMES\n7) SAIR"))) {
                 case 1:
                     criarFilmeInterface();
                     break;
                 case 2:
-                    if(this.topFilmes.length == 0) JOptionPane.showMessageDialog(null,"LISTA DE FILMES VAZIA!");
+                    if (this.topFilmes.length == 0) JOptionPane.showMessageDialog(null, "LISTA DE FILMES VAZIA!");
                     else procurarFilmeInterface();
                     break;
                 case 3:
-                    if(this.topFilmes.length == 0) JOptionPane.showMessageDialog(null,"LISTA DE FILMES VAZIA!");
+                    if (this.topFilmes.length == 0) JOptionPane.showMessageDialog(null, "LISTA DE FILMES VAZIA!");
                     else editarFilmeInterface();
                     break;
                 case 4:
-                    if(this.topFilmes.length == 0) JOptionPane.showMessageDialog(null,"LISTA DE FILMES VAZIA!");
+                    if (this.topFilmes.length == 0) JOptionPane.showMessageDialog(null, "LISTA DE FILMES VAZIA!");
                     else deletarFilmeInterface();
                     break;
                 case 5:
                     listarFilmes(this.topFilmes);
                     break;
                 case 6:
+                    JOptionPane.showMessageDialog(null, "A LISTA POSSUI: " + this.tamanho + " FILMES");
+                    break;
+                case 7:
                     System.exit(0);
                     break;
                 default:
@@ -407,5 +469,11 @@ public class ServicoFilme {
         } while (true);
     }
     // FIM INTERFACE USUARIO
+
+    // VALORES INICIAR PARA TESTE
+    public void inserir() throws Exception {
+        criarFilme("Poderoso", "Francis", "Drama", 1972, "175");
+        criarFilme("Interestelar", "Christopher Nolan", "Ficção Científica", 2014, "169 minutos");
+    }
 
 }

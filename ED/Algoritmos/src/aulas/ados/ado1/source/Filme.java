@@ -2,7 +2,6 @@ package aulas.ados.ado1.source;
 
 public class Filme {
 
-    private int id = 0;
     private String titulo;
     private String diretor;
     private String genero;
@@ -15,7 +14,6 @@ public class Filme {
         this.genero = genero;
         this.anoLancamento = anoLancamento;
         this.duracao = duracao;
-        this.id++;
     }
 
     public String getTitulo() {
@@ -60,7 +58,7 @@ public class Filme {
 
     @Override
     public String toString() {
-        return " Filme " + id +" [" +
+        return " [" +
                 "titulo='" + titulo + '\'' +
                 ", diretor='" + diretor + '\'' +
                 ", genero='" + genero + '\'' +
