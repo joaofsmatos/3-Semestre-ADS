@@ -1,13 +1,8 @@
 <component name="ArtifactManager">
-  <artifact name="Algoritmos:jar">
+  <artifact type="jar" name="Algoritmos:jar">
     <output-path>$PROJECT_DIR$/out/artifacts/Algoritmos_jar</output-path>
-    <root id="root">
-      <element id="archive" name="Algoritmos.jar">
-        <element id="directory" name="META-INF">
-          <element id="file-copy" path="$PROJECT_DIR$/src/aulas/ados/ado1/META-INF/MANIFEST.MF" />
-        </element>
-        <element id="module-output" name="Algoritmos" />
-      </element>
+    <root id="archive" name="Algoritmos.jar">
+      <element id="module-output" name="Algoritmos" />
     </root>
   </artifact>
 </component>

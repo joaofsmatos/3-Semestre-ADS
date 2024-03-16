@@ -1,5 +1,3 @@
-package aulas.ados.ado1.source;
-
 import javax.swing.*;
 
 public class ServicoFilme {
