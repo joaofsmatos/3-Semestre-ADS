@@ -1,9 +1,7 @@
 package aulas.aula4.ex5;
 
-public class Animal {
+public interface Animal {
 
-    public void fala() {
-
-    }
+    void fala();
 
 }

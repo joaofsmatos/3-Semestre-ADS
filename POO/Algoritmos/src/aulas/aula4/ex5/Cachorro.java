@@ -1,6 +1,6 @@
 package aulas.aula4.ex5;
 
-public class Cachorro extends Animal {
+public class Cachorro implements Animal {
 
     @Override
     public void fala() {

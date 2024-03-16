@@ -47,9 +47,8 @@ public class Conta {
         if(valor > 0) {
             this.saldo += valor;
             return true;
-        } else {
-            throw new Exception("ERRO DEPOSITAR!");
         }
+        return false;
     }
 
     public boolean sacar(double valor) throws Exception {
@@ -57,9 +56,8 @@ public class Conta {
             setLimite(getLimite() - (valor - saldo));
             this.saldo -= valor;
             return true;
-        } else {
-            throw new Exception("ERRO SACAR!");
         }
+        return false;
     }
 
     public boolean transferir(Conta contaOrigem, Conta contaDestino, double valor) throws Exception {
