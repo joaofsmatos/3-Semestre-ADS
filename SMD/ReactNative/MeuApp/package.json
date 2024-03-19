@@ -10,6 +10,7 @@
   },
   "dependencies": {
     "expo": "~50.0.7",
+    "expo-cli": "^6.3.10",
     "expo-status-bar": "~1.11.1",
     "moment": "^2.30.1",
     "react": "18.2.0",
