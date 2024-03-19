@@ -1,34 +1,86 @@
 import React, { useState } from 'react';
-import { View, Text, TextInput, Button, StyleSheet } from 'react-native';
+import { View, TouchableOpacity, Text, StyleSheet } from 'react-native';
 
-export default function () {
-  const [valorNum1, alterarNum1] = useState('');
-  const [valorNum2, alterarNum2] = useState('');
-  const [valorSoma, alterarSoma] = useState('');
+export default function App() {
+  const [numero, setNumero] = useState('');
+  const [conta, setConta] = useState('');
 
-  const somarDoisValores = () => {
-    const resultado = parseFloat(valorNum1) + parseFloat(valorNum2);
-    alterarSoma(resultado.toString());
+  const imprimirNumero = (numero) => {
+    if (numero == 'C') {
+      setConta('');
+    } else if (numero == '<') {
+      const novaConta = conta.slice(0, -1); // Remover o último caractere da conta
+      setConta(novaConta);
+    } else {
+      const novaConta = conta + numero + ' ';
+      setConta(novaConta);
+    }
   };
+  
 
   return (
     <View style={styles.container}>
-      <Text style={styles.texto}>Digite o primeiro número:</Text>
-      <TextInput
-        style={styles.entrada}
-        onChangeText={entrada => alterarNum1(entrada)}
-        value={valorNum1}
-        keyboardType="numeric"
-      />
-      <Text style={styles.texto}>Digite o segundo número:</Text>
-      <TextInput
-        style={styles.entrada}
-        onChangeText={text => alterarNum2(text)}
-        value={valorNum2}
-        keyboardType="numeric"
-      />
-      <Button title="Somar" onPress={somarDoisValores} />
-      <Text style={styles.resultado}>A soma é: {valorSoma}</Text>
+      <Text style={styles.buttonText}>{conta}</Text>
+      <Text style={styles.buttonText}></Text>
+      <Text style={styles.buttonText}></Text>
+      <View style={styles.row}>
+      <TouchableOpacity style={styles.button} onPress={() => imprimirNumero('<')}>
+          <Text style={styles.buttonText}>&#x25C0;</Text>
+        </TouchableOpacity>
+        <TouchableOpacity style={styles.button} onPress={() => imprimirNumero('C')}>
+          <Text style={styles.buttonText}>C</Text>
+        </TouchableOpacity>
+        <TouchableOpacity style={styles.button} onPress={() => imprimirNumero('+')}>
+          <Text style={styles.buttonText}>+</Text>
+        </TouchableOpacity>
+        <TouchableOpacity style={styles.button} onPress={() => imprimirNumero('-')}>
+          <Text style={styles.buttonText}>-</Text>
+        </TouchableOpacity>
+        <TouchableOpacity style={styles.button} onPress={() => imprimirNumero('x')}>
+          <Text style={styles.buttonText}>x</Text>
+        </TouchableOpacity>
+        <TouchableOpacity style={styles.button} onPress={() => imprimirNumero('/')}>
+          <Text style={styles.buttonText}>/</Text>
+        </TouchableOpacity>
+      </View>
+      <View style={styles.row}>
+        <TouchableOpacity style={styles.button} onPress={() => imprimirNumero(1)}>
+          <Text style={styles.buttonText}>1</Text>
+        </TouchableOpacity>
+        <TouchableOpacity style={styles.button} onPress={() => imprimirNumero(2)}>
+          <Text style={styles.buttonText}>2</Text>
+        </TouchableOpacity>
+        <TouchableOpacity style={styles.button} onPress={() => imprimirNumero(3)}>
+          <Text style={styles.buttonText}>3</Text>
+        </TouchableOpacity>
+      </View>
+      <View style={styles.row}>
+        <TouchableOpacity style={styles.button} onPress={() => imprimirNumero(4)}>
+          <Text style={styles.buttonText}>4</Text>
+        </TouchableOpacity>
+        <TouchableOpacity style={styles.button} onPress={() => imprimirNumero(5)}>
+          <Text style={styles.buttonText}>5</Text>
+        </TouchableOpacity>
+        <TouchableOpacity style={styles.button} onPress={() => imprimirNumero(6)}>
+          <Text style={styles.buttonText}>6</Text>
+        </TouchableOpacity>
+      </View>
+      <View style={styles.row}>
+        <TouchableOpacity style={styles.button} onPress={() => imprimirNumero(7)}>
+          <Text style={styles.buttonText}>7</Text>
+        </TouchableOpacity>
+        <TouchableOpacity style={styles.button} onPress={() => imprimirNumero(8)}>
+          <Text style={styles.buttonText}>8</Text>
+        </TouchableOpacity>
+        <TouchableOpacity style={styles.button} onPress={() => imprimirNumero(9)}>
+          <Text style={styles.buttonText}>9</Text>
+        </TouchableOpacity>
+      </View>
+      <View style={styles.row}>
+        <TouchableOpacity style={styles.button} onPress={() => imprimirNumero(0)}>
+          <Text style={styles.buttonText}>0</Text>
+        </TouchableOpacity>
+      </View>
     </View>
   );
 }
@@ -36,24 +88,24 @@ export default function () {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    justifyContent: 'center',
+    backgroundColor: '#fff',
     alignItems: 'center',
-    padding: 20,
+    justifyContent: 'center',
   },
-  texto: {
-    fontSize: 18,
+  row: {
+    flexDirection: 'row',
     marginBottom: 10,
   },
-  entrada: {
-    width: '100%',
-    height: 40,
-    borderColor: 'gray',
-    borderWidth: 1,
-    marginBottom: 20,
-    paddingHorizontal: 10,
+  button: {
+    flex: 1,
+    backgroundColor: '#DDDDDD',
+    padding: 20,
+    marginHorizontal: 5,
+    borderRadius: 10,
+    alignItems: 'center',
+    justifyContent: 'center',
   },
-  resultado: {
+  buttonText: {
     fontSize: 20,
-    marginTop: 20,
   },
 });
