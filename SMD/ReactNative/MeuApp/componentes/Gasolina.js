@@ -4,9 +4,7 @@ export default props => {
     return (
         <View style={estilos.bloco}>
             <Text style={estilos.texto}>Digite o valor da Gasolina:</Text>
-            <TextInput style={estilos.txt} placeholder="R$ 00,0" keyboardType="numeric"
-            onChangeText={text => props.aoModificar(text)}
-            >
+            <TextInput style={estilos.txt} placeholder="R$ 00,0" keyboardType="numeric" onChangeText={text => props.aoModificar(text)}>
             </TextInput>
         </View>
     );
