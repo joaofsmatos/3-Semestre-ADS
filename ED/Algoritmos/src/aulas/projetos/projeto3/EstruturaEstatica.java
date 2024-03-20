@@ -45,6 +45,7 @@ public class EstruturaEstatica<T> {
         for (int i = 0; i < this.tamanho - 1; i++) {
             elementos[i] = elementos[i+1];
         }
+        tamanho--;
     }
 
     public void aumentarCapacidade() {
