@@ -1,57 +1,42 @@
-import React, { useState } from 'react';
-import { StyleSheet, SafeAreaView } from 'react-native';
-import Gasolina from './componentes/Gasolina';
-import Etanol from './componentes/Etanol';
-import BtnCalcular from './componentes/BtnCalcular';
-import Resultado from './componentes/Resultado';
-import ImgResultado from './componentes/ImgResultado';
+import React, { useState } from "react";
+import { StyleSheet, View, Text, TouchableHighlight } from "react-native";
+import EntradaAltura from "./componentes/entradaAltura";
+import EntradaPeso from "./componentes/entradaPeso";
+import SaidaIMC from "./componentes/saidaIMC";
 
 export default function () {
+  const [getImc, setImc] = useState('');
+  const [getAltura, setAltura] = useState(0);
+  const [getPeso, setPeso] = useState(0);
 
-  const [gasolina, setGasolina] = useState(0);
-  const [etanol, setEtanol] = useState(0);
-  const [resultado, setResultado] = useState('');
-
-  const calcular = () => {
-    if(!gasolina) {
-      alert('Informe o preço da gasolina!');
-      return
+  const calcularIMC = () => {
+    if (!getAltura) {
+      alert("Informe a altura");
+      return;
+    } if (!getAltura) {
+      alert("Informe a altura");
+      return;
     }
-    if(!etanol) {
-      alert('Informe o preço do etanol!');
-      return
-    }
-    let result;
-    if(((etanol/gasolina)*100).toFixed(1) > 70) {
-      result = 'Gasolina';
-    } else {
-      result = 'Etanol';
-    }
-    setResultado(result);
+    setImc((getPeso / (getAltura * getAltura)).toFixed(2));
   }
 
-  const limpar = () => {
-    setResultado('');
-  }
-
-  const setarGasosa = (v) => {
-    limpar();
-    setGasolina(v);
-  } 
-
-  const setarEtanois = (v) => {
-    limpar();
-    setEtanol(v);
-  } 
-
-  return(
-    <SafeAreaView style={estilos.principal}>
-      <Gasolina aoModificar={setarGasosa}></Gasolina>
-      <Etanol aoModificar={setarEtanois}></Etanol>
-      <BtnCalcular aoPressionar={calcular}></BtnCalcular>
-      <Resultado resultado={resultado}></Resultado>
-      <ImgResultado comb={resultado.charAt(0)}></ImgResultado>
-    </SafeAreaView>
+  return (
+    <View style={estilos.principal}>
+      <View style={estilos.comp}>
+        <EntradaAltura altura={setAltura}></EntradaAltura>
+      </View>
+      <View style={estilos.comp}>
+        <EntradaPeso kg={setPeso}></EntradaPeso>
+      </View>
+      <View style={estilos.comp}>
+        <TouchableHighlight onPress={calcularIMC}>
+          <Text style={estilos.calcular}>CALCULAR</Text>
+        </TouchableHighlight>
+      </View>
+      <View style={estilos.comp}>
+        <SaidaIMC imc={getImc}></SaidaIMC>
+      </View>
+    </View>
   );
 }
 
@@ -59,5 +44,18 @@ const estilos = StyleSheet.create({
   principal: {
     marginTop: '10%',
     padding: 10
+  },
+  calcular: {
+    borderColor: 'blue',
+    borderWidth: 2,
+    borderRadius: 7,
+    padding: '2%',
+    color: 'white',
+    backgroundColor: 'blue',
+    justifyContent: 'center',
+    textAlign: 'center'
+  },
+  comp: {
+    marginBottom: 10,
   }
 });
