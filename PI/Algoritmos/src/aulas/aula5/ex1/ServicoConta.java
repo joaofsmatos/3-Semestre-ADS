@@ -43,8 +43,6 @@ public class ServicoConta {
         } else {
             throw new Exception("A conta origem não pode ser a mesma que a destino!");
         }
-        if (contaOrigem == null) JOptionPane.showMessageDialog(null, "Conta origem inexistente!");
-        if (contaDestino == null) JOptionPane.showMessageDialog(null, "Conta destino inexistente!");
     }
 
     public void pagarConta(Conta conta, String codigoDeBarras) throws Exception {
